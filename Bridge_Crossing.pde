@@ -14,8 +14,9 @@ boolean PULSATE_LINES = false;
 boolean PULSATE_NODES = false;
 boolean DO_PULL_ANIMATION = false;
 boolean DRAW_HIGHLIGHT = true;
-boolean DRAW_DANGEROUS = false;
+boolean DRAW_DANGEROUS = true;
 boolean PULSATE_OPTIMAL_PATHS = false;
+boolean DRAW_VERTICAL_GRIDLINES = true;
 boolean LOCK_CAMERA = true;  // if false, it will track your mouse, but your mouse has to be on-screen
 boolean SAVE_VIDEO = true;
 
@@ -419,16 +420,18 @@ void drawGridlines(PGraphics c, Board b) {
   for (int x = 0; x <= b.W; x++) {
     c.rect((x-GRID_THICKNESS/2)*DIST, 0, GRID_THICKNESS*DIST, board.getDimSize(1)*DIST);
   }
-  /*for(int y = 0; y <= b.L; y++){
-   for(int x = 0; x <= b.W; x++){
-   c.pushMatrix();
-   c.translate(x*DIST,y*DIST,0);
-   c.rotateZ(-Xang);
-   c.rotateX(PI/2);
-   c.rect(-GRID_THICKNESS/2*DIST,0,GRID_THICKNESS*DIST,board.getDimSize(2)*DIST);
-   c.popMatrix();
-   }
-   }*/
+  if(DRAW_VERTICAL_GRIDLINES){
+    for(int y = 0; y <= b.L; y++){
+      for(int x = 0; x <= b.W; x++){
+        c.pushMatrix();
+        c.translate(x*DIST,y*DIST,0);
+        c.rotateZ(-Xang);
+        c.rotateX(PI/2);
+        c.rect(-GRID_THICKNESS/2*DIST,0,GRID_THICKNESS*DIST,board.getDimSize(2)*DIST);
+        c.popMatrix();
+      }
+    }
+  }
 }
 void drawHighlight(PGraphics c, Board b) {
   int prog = frames-transitionTime+transitionLength;
